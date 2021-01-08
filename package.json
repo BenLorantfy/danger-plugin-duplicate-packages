@@ -1,0 +1,80 @@
+{
+  "name": "danger-plugin-duplicate-packages",
+  "description": "This is a Danger Plugin that allows checking for multiple copies of packages in the dependency tree.",
+  "author": {
+    "name": "Ben Lorantfy",
+    "email": "ben@lorantfy.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenLorantfy/danger-plugin-duplicate-packages.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BenLorantfy/danger-plugin-duplicate-packages/issues"
+  },
+  "homepage": "https://github.com/BenLorantfy/danger-plugin-duplicate-packages#readme",
+  "keywords": [
+    "danger",
+    "danger-plugin",
+    "duplicate",
+    "packages",
+    "dedupe"
+  ],
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "tsconfig.json",
+    "dist",
+    "LICENSE.md"
+  ],
+  "scripts": {
+    "precommit": "lint-staged",
+    "build": "tsc",
+    "test": "jest",
+    "prettier": "prettier",
+    "prettier-write": "npm run prettier -- --parser typescript --no-semi --trailing-comma es5 --write --print-width 120",
+    "prettier-project": "npm run prettier-write -- 'src/**/*.{ts,tsx}'",
+    "lint": "tslint \"src/**/*.ts\"",
+    "prepublishOnly": "./scripts/check-on-master.sh && npm run test && npm run build"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.9",
+    "danger": "*",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.3.1",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.0",
+    "typescript": "^3.3.3333",
+    "validate-commit-msg": "^2.12.1"
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "tslint --fix",
+      "npm run prettier-write --",
+      "git add"
+    ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(.test)\\.(ts|tsx)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ]
+  }
+}
